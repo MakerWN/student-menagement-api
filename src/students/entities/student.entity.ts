@@ -1,4 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, OneToOne, PrimaryGeneratedColumn, ManyToOne, OneToMany,JoinColumn } from 'typeorm';
+import { Prefixs } from 'src/prefixs/entities/prefix.entity';
+import { Gender } from 'src/genders/entities/gender.entity';
+import { Studentmapping } from 'src/studentmapping/entities/studentmapping.entity';
 
 @Entity()
 export class Student {
@@ -6,10 +9,10 @@ export class Student {
   id: number;
 
   @Column()
-  citizenID: string;
+  studentID: string;
 
   @Column()
-  prefix: number;
+  prefixCode: number;
 
   @Column()
   firstName: string;
@@ -18,20 +21,26 @@ export class Student {
   lastName: string;
 
   @Column()
-  gender: number;
+  genderCode: number;
 
   @Column()
   dateOfBirth: Date;
-
-  @Column()
-  grade: number;
-
-  @Column()
-  class: number;
 
   @Column()
   createAt: Date;
 
   @Column()
   updateAt: Date;
+
+  @OneToOne(() => Prefixs)
+  @JoinColumn({ name: 'prefixCode' })
+  prefix: Prefixs;
+
+  @OneToOne(() => Gender)
+  @JoinColumn({ name: 'genderCode' })
+  gender: Gender;
+
+//   @OneToOne(() => Studentmapping)
+//   @JoinColumn({ name: 'id' })
+//   mapping: Studentmapping;
 }

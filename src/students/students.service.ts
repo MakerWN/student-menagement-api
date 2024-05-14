@@ -9,15 +9,23 @@ import { Student } from './entities/student.entity';
 export class StudentsService {
   constructor(
     @InjectRepository(Student)
-    private studentsRepository: Repository<Student>,
-  ) {}
+    private studentsRepository: Repository<Student>
+  ) { }
 
   create(createStudentDto: CreateStudentDto) {
     return this.studentsRepository.save(createStudentDto);
   }
 
-  findAll(): Promise<Student[]>{
-    return this.studentsRepository.find();
+  findAll(): Promise<Student[]> {
+    return this.studentsRepository.find({ relations: ['prefix', 'gender'] });
+  }
+
+  async getStudentWithFilter(query) {
+    const search = query.search;
+    const filter = query.filter;
+    let students = await this.findAll();
+    students = students.filter((student) => ((student.studentID === search || student.firstName === search || student.lastName === search) && (student === filter)));
+    return students;
   }
 
   findOne(id: number): Promise<Student | null> {

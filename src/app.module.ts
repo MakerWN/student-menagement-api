@@ -3,6 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StudentsModule } from './students/students.module';
+import { ClassroomModule } from './classroom/classroom.module';
+import { StudentmappingModule } from './studentmapping/studentmapping.module';
+import { PrefixsModule } from './prefixs/prefixs.module';
+import { GendersModule } from './genders/genders.module';
 
 
 @Module({
@@ -17,7 +21,11 @@ import { StudentsModule } from './students/students.module';
       entities: ['dist/**/**/*.entity.{ts,js}'],
       synchronize: true,
     }),
-    StudentsModule
+    StudentsModule,
+    ClassroomModule,
+    StudentmappingModule,
+    PrefixsModule,
+    GendersModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 
 @Controller('students')
 export class StudentsController {
-  constructor(private readonly studentsService: StudentsService) {}
+  constructor(private readonly studentsService: StudentsService) { }
 
   @Post()
   create(@Body() createStudentDto: CreateStudentDto) {
@@ -13,8 +13,12 @@ export class StudentsController {
   }
 
   @Get()
-  findAll() {
-    return this.studentsService.findAll();
+  async filter(@Query() query: Record<string, any>) {
+    if (query.search || query.filter) {
+      return this.studentsService.getStudentWithFilter(query);
+    } else {
+      return this.studentsService.findAll();
+    }
   }
 
   @Get(':id')

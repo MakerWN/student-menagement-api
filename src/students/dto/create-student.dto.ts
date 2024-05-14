@@ -1,10 +1,10 @@
 export class CreateStudentDto {
     id: number;
-    citizenID: string;
-    prefix: number;
+    studentID: string;
+    prefixCode: number;
     firstName: string;
     lastName: string;
-    gender: number;
+    genderCode: number;
     dateOfBirth: Date;
     grade: number;
     class: number;
