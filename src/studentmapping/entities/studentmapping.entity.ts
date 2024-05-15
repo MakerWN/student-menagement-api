@@ -7,8 +7,12 @@ export class Studentmapping {
   id: number;
 
   @Column()
-  classRoomID: number;
+  classRoomCode: number;
 
   @Column()
-  studentID: number;
+  studentCode: number;
+
+  @OneToOne(() => Classroom)
+  @JoinColumn({ name: 'classRoomCode' })
+  classRoom: Classroom;
 }

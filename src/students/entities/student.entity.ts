@@ -1,7 +1,8 @@
-import { Entity, Column, OneToOne, PrimaryGeneratedColumn, ManyToOne, OneToMany,JoinColumn } from 'typeorm';
+import { Entity, Column, OneToOne, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, JoinColumn } from 'typeorm';
 import { Prefixs } from 'src/prefixs/entities/prefix.entity';
 import { Gender } from 'src/genders/entities/gender.entity';
 import { Studentmapping } from 'src/studentmapping/entities/studentmapping.entity';
+import { Classroom } from 'src/classroom/entities/classroom.entity';
 
 @Entity()
 export class Student {
@@ -9,7 +10,7 @@ export class Student {
   id: number;
 
   @Column()
-  studentID: string;
+  studentNo: string;
 
   @Column()
   prefixCode: number;
@@ -23,24 +24,27 @@ export class Student {
   @Column()
   genderCode: number;
 
+  @Column({ default: null })
+  classCode: number;
+
   @Column()
   dateOfBirth: Date;
 
-  @Column()
-  createAt: Date;
-
-  @Column()
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+  
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updateAt: Date;
 
-  @OneToOne(() => Prefixs)
+  @ManyToOne(() => Prefixs)
   @JoinColumn({ name: 'prefixCode' })
   prefix: Prefixs;
 
-  @OneToOne(() => Gender)
+  @ManyToOne(() => Gender)
   @JoinColumn({ name: 'genderCode' })
   gender: Gender;
 
-//   @OneToOne(() => Studentmapping)
-//   @JoinColumn({ name: 'id' })
-//   mapping: Studentmapping;
+  @ManyToOne(() => Classroom)
+  @JoinColumn({ name: 'classCode' })
+  classRoom: Classroom;
 }

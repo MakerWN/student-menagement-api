@@ -1,4 +1,4 @@
 export class CreateStudentmappingDto {
-  classRoomID: number;
-  studentID: number;
+  classRoomCode: number;
+  studentCode: number;
 }

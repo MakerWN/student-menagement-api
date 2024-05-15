@@ -14,16 +14,32 @@ export class StudentsController {
 
   @Get()
   async filter(@Query() query: Record<string, any>) {
-    if (query.search || query.filter) {
-      return this.studentsService.getStudentWithFilter(query);
-    } else {
-      return this.studentsService.findAll();
-    }
+    return this.studentsService.getStudentWithSearch(query.search, query.filter);
   }
+
+  // @Get()
+  // async getStudentInClassRoom(@Query() query: Record<string, any>) {
+  //   return this.studentsService.getStudentWithfilterClassRoom(query.filter);
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.studentsService.findOne(+id);
+  }
+
+  @Get('not/class')
+  async getStudentFilterNot(){
+    return this.studentsService.getStudentWithFilterNot();
+  }
+
+  @Patch('add-student-to-classroom')
+  async updateMultipleUsers(@Body() users: UpdateStudentDto[]): Promise<any> {
+    try {
+      await this.studentsService.updateMultiple(users);
+      return { success: true, message: 'Users updated successfully' };
+    } catch (error) {
+      return { success: false, message: 'Failed to update users', error };
+    }
   }
 
   @Patch(':id')

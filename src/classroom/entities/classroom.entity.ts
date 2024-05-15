@@ -15,6 +15,9 @@ export class Classroom {
   year: string;
 
   @Column()
+  grade: string;
+
+  @Column()
   teacher: string;
 
   @Column()

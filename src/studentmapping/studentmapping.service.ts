@@ -17,7 +17,7 @@ export class StudentmappingService {
   }
 
   findAll(): Promise<Studentmapping[]> {
-    return this.studentmappingRepository.find();
+    return this.studentmappingRepository.find({ relations: ['classRoom'] });
   }
   findOne(id: number): Promise<Studentmapping | null> {
     return this.studentmappingRepository.findOneBy({ id });
