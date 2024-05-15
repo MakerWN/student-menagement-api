@@ -55,21 +55,6 @@ export class StudentsService {
     }
   }
 
-  async getStudentWithFilter(query) {
-    //   let students = await this.findAll();
-    //   const search = query.search;
-    //   const filter = query.filter;
-    //   students = students.filter((student) => filter && student.classRoom ? (student.studentNo === search ||
-    //     student.firstName === search ||
-    //     student.lastName === search ||
-    //     student.classRoom.classNo === filter.classNo ||
-    //     student.classRoom.year === filter.year ||
-    //     student.classRoom.grade === filter.grade) : student.studentNo === search ||
-    //     student.firstName === search ||
-    //   student.lastName === search
-    //   );
-    //   return students;
-  }
 
   async getStudentWithFilterNot(): Promise<Student[]> {
     return this.studentsRepository.find({ where: { classCode: null } });
@@ -88,15 +73,12 @@ export class StudentsService {
     return this.studentsRepository.update(id, updateStudentDto);
   }
 
-<<<<<<< Updated upstream
   async updateMultiple(students: UpdateStudentDto[]): Promise<void> {
     for (const student of students) {
       await this.studentsRepository.update({ id: student.id }, student);
     }
   }
 
-=======
->>>>>>> Stashed changes
   async remove(id: number): Promise<void> {
     await this.studentsRepository.delete(id);
   }
