@@ -88,12 +88,15 @@ export class StudentsService {
     return this.studentsRepository.update(id, updateStudentDto);
   }
 
+<<<<<<< Updated upstream
   async updateMultiple(students: UpdateStudentDto[]): Promise<void> {
     for (const student of students) {
       await this.studentsRepository.update({ id: student.id }, student);
     }
   }
 
+=======
+>>>>>>> Stashed changes
   async remove(id: number): Promise<void> {
     await this.studentsRepository.delete(id);
   }
