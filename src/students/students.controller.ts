@@ -16,12 +16,7 @@ export class StudentsController {
   async filter(@Query() query: Record<string, any>) {
     return this.studentsService.getStudentWithSearch(query.search, query.filter);
   }
-
-  // @Get()
-  // async getStudentInClassRoom(@Query() query: Record<string, any>) {
-  //   return this.studentsService.getStudentWithfilterClassRoom(query.filter);
-  // }
-
+  
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.studentsService.findOne(+id);
